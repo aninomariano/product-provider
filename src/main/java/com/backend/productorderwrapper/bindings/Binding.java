@@ -1,15 +1,20 @@
-package com.backend.productorderwrapper.binding;
+package com.backend.productorderwrapper.bindings;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+
 @Configuration
 public class Binding {
 
     @Bean
     public RestTemplate restTemplate(final RestTemplateBuilder builder) {
-        return builder.errorHandler(new RestTemplateErrorHandler()).build();
+        return builder
+                .setConnectTimeout(Duration.ofMillis(5000))
+                .setReadTimeout(Duration.ofMillis(5000))
+                .build();
     }
 }
